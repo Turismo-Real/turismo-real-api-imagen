@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TurismoReal_Imagen.Core.Entities;
 
 namespace TurismoReal_Imagen.Core.Interfaces
@@ -9,10 +6,10 @@ namespace TurismoReal_Imagen.Core.Interfaces
     public interface IImagenRepository
     {
         // GET IMAGES BY DEPTO ID
-        Task<object> GetImages(int id);
+        Task<DeptoImagenes> GetImages(int id);
 
         // UPLOAD DEPTO IMAGE
-        Task<object> UploadImage(int id, ImagenPayload imagen);
+        Task<int> UploadImage(ImagenPayload imagen);
 
         // UPDATE DEPTO IMAGE
         Task<object> UpdateImage(int id, ImagenPayload imagen);
