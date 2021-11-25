@@ -33,7 +33,6 @@ namespace TurismoReal_Imagen.Api.Controllers
             int response = await _imagenRepository.UploadImage(imagen);
 
             if (response == 0) return new { message = "Error al agregar imagen" };
-
             return new { message = "Imagen agregada.", imagenId = response };
         }
 
