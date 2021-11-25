@@ -54,11 +54,6 @@ namespace TurismoReal_Imagen.Infra.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<object> DeleteImage(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<int> UploadImage(ImagenPayload imagen)
         {
             int saved = 0;
@@ -91,6 +86,22 @@ namespace TurismoReal_Imagen.Infra.Repositories
                 Console.WriteLine(ex.Message);
                 return saved;
             }
+        }
+
+        public async Task<int> DeleteImage(int id)
+        {
+            _context.OpenConnection();
+            OracleCommand cmd = new OracleCommand("sp_eliminar_imagen_depto", _context.GetConnection());
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.BindByName = true;
+
+            cmd.Parameters.Add("imagen_id", OracleDbType.Int32).Direction = ParameterDirection.Input;
+            cmd.Parameters.Add("deleted", OracleDbType.Int32).Direction = ParameterDirection.Output;
+
+            cmd.Parameters["imagen_id"].Value = id;
+            await cmd.ExecuteNonQueryAsync();
+            int removed = Convert.ToInt32(cmd.Parameters["deleted"].Value.ToString());
+            return removed;
         }
     }
 }

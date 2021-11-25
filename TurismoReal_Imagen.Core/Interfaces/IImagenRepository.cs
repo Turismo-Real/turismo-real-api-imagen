@@ -15,6 +15,6 @@ namespace TurismoReal_Imagen.Core.Interfaces
         Task<object> UpdateImage(int id, ImagenPayload imagen);
 
         // DELETE DEPTO IMAGE
-        Task<object> DeleteImage(int id);
+        Task<int> DeleteImage(int id);
     }
 }

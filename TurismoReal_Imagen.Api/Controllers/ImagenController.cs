@@ -47,8 +47,11 @@ namespace TurismoReal_Imagen.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<object> DeleteImagen(int id)
         {
-            var response = await _imagenRepository.DeleteImage(id);
-            return response;
+            int response = await _imagenRepository.DeleteImage(id);
+
+            if (response == -1) return new { message=$"No existe imagen con id {id}.", removed=false };
+            if (response == 0) return new { message="Error al eliminar imagen.", removed=false };
+            return new { message="Imagen eliminada.", removed=true };
         }
 
     }
