@@ -11,9 +11,6 @@ namespace TurismoReal_Imagen.Core.Interfaces
         // UPLOAD DEPTO IMAGE
         Task<int> UploadImage(ImagenPayload imagen);
 
-        // UPDATE DEPTO IMAGE
-        Task<object> UpdateImage(int id, ImagenPayload imagen);
-
         // DELETE DEPTO IMAGE
         Task<int> DeleteImage(int id);
     }

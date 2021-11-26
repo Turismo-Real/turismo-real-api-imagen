@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using System.Threading.Tasks;
 using TurismoReal_Imagen.Core.Entities;
 using TurismoReal_Imagen.Core.Interfaces;
@@ -39,6 +38,7 @@ namespace TurismoReal_Imagen.Infra.Repositories
             {
                 Imagen imagen = new Imagen();
                 imagen.idImagen = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("id_imagen")).ToString());
+                imagen.nombre = reader.GetValue(reader.GetOrdinal("nombre")).ToString();
                 imagen.formato = reader.GetValue(reader.GetOrdinal("formato")).ToString();
                 byte[] byteImage = (byte[]) reader.GetValue(reader.GetOrdinal("imagen"));
                 imagen.imagen = Convert.ToBase64String(byteImage);
@@ -47,11 +47,6 @@ namespace TurismoReal_Imagen.Infra.Repositories
             deptoImagenes.imagenes = imagenes;
             _context.CloseConnection();
             return deptoImagenes;
-        }
-
-        public Task<object> UpdateImage(int id, ImagenPayload imagen)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<int> UploadImage(ImagenPayload imagen)
@@ -67,11 +62,13 @@ namespace TurismoReal_Imagen.Infra.Repositories
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add("depto_id", OracleDbType.Int32).Direction = ParameterDirection.Input;
+                cmd.Parameters.Add("nombre_i", OracleDbType.Varchar2).Direction = ParameterDirection.Input;
                 cmd.Parameters.Add("formato_i", OracleDbType.Varchar2).Direction = ParameterDirection.Input;
                 cmd.Parameters.Add("imagen_i", OracleDbType.Blob).Direction = ParameterDirection.Input;
                 cmd.Parameters.Add("saved", OracleDbType.Int32).Direction = ParameterDirection.Output;
 
                 cmd.Parameters["depto_id"].Value = imagen.idDepartamento;
+                cmd.Parameters["nombre_i"].Value = imagen.nombre;
                 cmd.Parameters["formato_i"].Value = imagen.formato;
                 cmd.Parameters["imagen_i"].Value = byteImage;
 

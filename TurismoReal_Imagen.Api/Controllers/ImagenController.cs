@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TurismoReal_Imagen.Core.Entities;
 using TurismoReal_Imagen.Core.Interfaces;
@@ -34,13 +30,6 @@ namespace TurismoReal_Imagen.Api.Controllers
 
             if (response == 0) return new { message = "Error al agregar imagen" };
             return new { message = "Imagen agregada.", imagenId = response };
-        }
-
-        [HttpPut("{id}")]
-        public async Task<object> UpdateImagen(int id, [FromBody] ImagenPayload imagen)
-        {
-            var response = await _imagenRepository.UpdateImage(id, imagen);
-            return response;
         }
 
         [HttpDelete("{id}")]
